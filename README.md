@@ -55,8 +55,8 @@ This project is a backend application that provides APIs for managing notes. It 
    - PUT /api/notes/:id: Update an existing note.
    - DELETE /api/notes/:id: Delete a note.
 
-## Contributors:
+## Contributors
 **George Adly**
 
-## License:
+## License
    This project is licensed under the MIT License.
