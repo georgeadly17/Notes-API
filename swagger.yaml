@@ -1,0 +1,208 @@
+openapi: "3.0.3"
+info:
+  title: Notes API
+  version: "1.0"
+servers:
+  - url: http://localhost:3000/api/v1
+    variables: {}
+paths:
+  /notes:
+    get:
+      tags:
+        - Notes
+      summary: Get all Notes
+      operationId: GetallNotes
+      responses:
+        "200":
+          description: ""
+          content: {}
+      deprecated: false
+      security:
+        - bearer: []
+    post:
+      tags:
+        - Notes
+      summary: Create Note
+      operationId: CreateNote
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNoteRequest"
+            examples:
+              example1:
+                summary: Example Create Note
+                value:
+                  name: George
+      responses:
+        "200":
+          description: ""
+          content: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /notes/{noteId}:
+    parameters:
+      - name: noteId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Notes
+      summary: Get Single Note
+      operationId: GetSingleNote
+      responses:
+        "200":
+          description: ""
+          content: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - Notes
+      summary: Update Note
+      operationId: UpdateNote
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateNoteRequest"
+            examples:
+              example1:
+                summary: Example Update Note
+                value:
+                  name: George update
+                  completed: false
+      responses:
+        "200":
+          description: ""
+          content: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Notes
+      summary: Delete Note
+      operationId: DeleteNote
+      responses:
+        "200":
+          description: ""
+          content: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      operationId: LoginUser
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+            examples:
+              example1:
+                summary: Example Login
+                value:
+                  email: George@gmail.com
+                  password: secret
+      responses:
+        "200":
+          description: ""
+          content: {}
+      deprecated: false
+    parameters: []
+  /register:
+    post:
+      tags:
+        - Auth
+      summary: Register User
+      operationId: RegisterUser
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+            examples:
+              example1:
+                summary: Example Register
+                value:
+                  username: George1
+                  email: George1@gmail.com
+                  password: secret
+      responses:
+        "200":
+          description: ""
+          content: {}
+      deprecated: false
+    parameters: []
+components:
+  schemas:
+    CreateNoteRequest:
+      title: CreateNoteRequest
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    UpdateNoteRequest:
+      title: UpdateNoteRequest
+      type: object
+      required:
+        - name
+        - completed
+      properties:
+        name:
+          type: string
+        completed:
+          type: boolean
+    LoginRequest:
+      title: LoginRequest
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    RegisterRequest:
+      title: RegisterRequest
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ""
+  - name: Notes
+    description: ""

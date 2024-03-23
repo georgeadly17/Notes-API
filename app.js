@@ -5,14 +5,28 @@ const notFound = require("./middleware/notFoundRoute");
 const errorHandler = require("./middleware/errorHandler");
 const app = express();
 const port = process.env.PORT || 5000;
+const authMeddleware = require("./middleware/auth");
+const cors = require("cors");
 
-// middleware
-app.use(express.static("./puplic"));
+//swagger:
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+
+// addition methods:
 app.use(express.json());
+app.use(cors());
+
+app.get("/", (req, res) => {
+  res.send(`<h1>Notes API</h1> <a href="/swaggerUI">Docs</a>
+  `);
+});
+
+app.use("/swaggerUI", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // routes
-app.use("/api/v1/", require("./route/taskRoute"));
-app.use("/api/v1/", require("./route/userRoute"));
+app.use("/api/v1", require("./route/userRoute"));
+app.use("/api/v1", authMeddleware, require("./route/noteRoute"));
 app.use(notFound);
 app.use(errorHandler);
 
